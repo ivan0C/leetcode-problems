@@ -3,7 +3,7 @@
  * @param {string} s
  * @return {number}
  */
-const romanToInt = s => {
+function romanToInt (s) {
     const ROMAN_TO_INT_MAPPING = {
         I: 1,
         V: 5,
@@ -14,17 +14,17 @@ const romanToInt = s => {
         M: 1000,
     }
     let i = 0, result = 0;
+    let first_value;
+    let second_value;
     while (i < s.length - 1) {
-        const first_symbol = s[i], second_symbol = s[i+1];
-        const first_value = ROMAN_TO_INT_MAPPING[first_symbol];
-        const second_value = ROMAN_TO_INT_MAPPING[second_symbol];
+        first_value = ROMAN_TO_INT_MAPPING[s[i]];
+        second_value = ROMAN_TO_INT_MAPPING[s[i + 1]];
         if (second_value > first_value) {
             result += (second_value - first_value);
-            i++;
+            i += 2;
+            continue;
         }
-        else {
-            result += first_value;
-        }
+        result += first_value;
         i++;
     }
     return s[i] ? result + ROMAN_TO_INT_MAPPING[s[i]] : result;
